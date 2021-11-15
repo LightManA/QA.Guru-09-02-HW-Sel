@@ -11,16 +11,15 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class AutomPracticeForm {
+public class DemoqaAutomationPracticeForm {
 
     @BeforeAll
     static void setMaxBrowserSize() {
         Configuration.startMaximized = true;
-
     }
 
     @Test
-    void fillingStudentRegForm() {
+    void fillingAndCheckRegForm() {
         open("https://demoqa.com/automation-practice-form");
         $("[id=firstName]").setValue("Picaboo");
         $("#lastName").setValue("Pincertone");
@@ -33,15 +32,11 @@ public class AutomPracticeForm {
         $("[class*='day--019']").click();
         $("#subjectsInput").setValue("Computer Science").pressEnter();
         $("[for=hobbies-checkbox-3]").click();
-        $("#uploadPicture").uploadFile(new File("C:\\Users\\Aware\\Leopard.jpg"));
+        $("#uploadPicture").uploadFromClasspath("Leopard.jpg");
         $("#currentAddress").setValue("Moscow, Vernadsky st., 50, ap.77");
         $("#react-select-3-input").setValue("Uttar Pradesh").pressEnter();
         $("#react-select-4-input").setValue("Agra").pressEnter();
         $("[id=submit]").pressEnter();
-    }
-
-    @Test
-    void checkingCorrectOfDataInSubmittedForm() {
         $(byText("Picaboo Pincertone")).shouldBe(visible, Duration.ofSeconds(5));
         $(byText("Picaboo@boo.com")).shouldBe(visible);
         $(byText("Male")).shouldBe(visible);
@@ -52,7 +47,6 @@ public class AutomPracticeForm {
         $(byText("Leopard.jpg")).shouldBe(visible);
         $(byText("Moscow, Vernadsky st., 50, ap.77")).shouldBe(visible);
         $(byText("Uttar Pradesh Agra")).shouldBe(visible);
-
-        sleep(5000);
     }
+
 }
